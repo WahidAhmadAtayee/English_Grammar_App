@@ -82,10 +82,34 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #    - family: Canterbury
-  #      fonts:
-  #        - asset: fonts/Canterbury.ttf
+  fonts:
+    - family: Arial
+      fonts:
+        - asset: fonts/arial_narrow_7.ttf
+    - family: Arially
+      fonts:
+        - asset: fonts/Arially.otf
+    - family: Forte
+      fonts:
+        - asset: fonts/Forte-Fill.ttf
+    - family: Gigi
+      fonts:
+        - asset: fonts/Canterbury.ttf
+    - family: Fortela
+      fonts:
+        - asset: fonts/Fortela Typeface.otf
+    - family: Gigigit
+      fonts:
+        - asset: fonts/Gigigit.otf
+    - family: Gigihan
+      fonts:
+        - asset: fonts/Gigihandwriting.otf
+    - family: Impact
+      fonts:
+        - asset: fonts/Impact.ttf
+    - family: Impacto
+      fonts:
+        - asset: fonts/Impacto Final!.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
