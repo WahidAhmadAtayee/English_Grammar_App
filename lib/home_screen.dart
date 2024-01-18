@@ -1,38 +1,74 @@
+import 'dart:io';
+
+import 'package:english_grammar_app/about.dart';
+import 'package:english_grammar_app/list_of_titles.dart';
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 var mode = false;
 var iconMode = Icons.light_mode;
 var fullName = "Full-Name";
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  
+  String? _selectedOption;
+
+  bool _isCheckedEnglish = true;
+  bool _isCheckedDari = false;
+
+  var version = "0.1";
+  
+  final _imageList = [
+    ClipRRect(
+        borderRadius: BorderRadius.circular(10.0),
+        child: Image.asset('images/basic.jpg')),
+    Image.asset('images/intermediate.jpg'),
+    Image.asset('images/advanced.jpg'),
+  ];
+  int _currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          "Home",
+          style: TextStyle(color: Colors.white, fontSize: 30),
+        ),
+      ),
       drawer: Drawer(
-        child: ListView(
+        width: 268.0,
+        child: Column(
           children: [
             UserAccountsDrawerHeader(
               accountName: Row(
                 children: [
                   Icon(
                     Icons.account_circle,
-                    color: Colors.blue,
+                    color: Color.fromARGB(255, 0, 174, 255),
                   ),
                   SizedBox(
-                    width: 8,
+                    width: 8.0,
                   ),
                   Text(
                     fullName,
                     style: TextStyle(
                       fontStyle: FontStyle.italic,
-                      color: Colors.white,
+                      color: Color.fromARGB(197, 255, 224, 224),
                     ),
                   ),
                 ],
@@ -40,16 +76,21 @@ class _HomeScreenState extends State<HomeScreen> {
               accountEmail: null,
               decoration: BoxDecoration(
                 gradient: LinearGradient(colors: [
-                  Color.fromARGB(255, 0, 118, 214),
-                  Color.fromARGB(255, 82, 198, 251),
+                  Color.fromARGB(255, 0, 81, 148),
+                  Color.fromARGB(255, 100, 206, 255),
                 ]),
               ),
               currentAccountPicture: Stack(
                 children: [
+                  // Show user's photo
                   CircleAvatar(
                     backgroundColor: Colors.lightBlue,
-                    radius: 100,
-                    child: Image.asset("images/cafetalk.png"),
+                    radius: 100.0,
+                    child: Center(
+                        child: Text(
+                      fullName[0],
+                      style: TextStyle(fontSize: 45.0),
+                    )),
                   ),
                   Positioned(
                     child: IconButton(
@@ -66,78 +107,449 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             ListTile(
-              title: Text("Light/Dark"),
               leading: Icon(iconMode),
-              trailing: Switch(
-                value: mode,
-                onChanged: (v) {
-                  if (mode == false) {
-                    mode = true;
-                    iconMode = Icons.dark_mode;
-                  } else {
-                    mode = false;
-                    iconMode = Icons.light_mode;
-                  }
-                  setState(() {});
-                },
+              title: Text("Light/Dark"),
+              trailing: Padding(
+                padding: const EdgeInsets.only(right: 50.0),
+                child: Switch(
+                  value: mode,
+                  onChanged: (v) {
+                    if (mode == false) {
+                      mode = true;
+                      iconMode = Icons.dark_mode;
+                    } else {
+                      mode = false;
+                      iconMode = Icons.light_mode;
+                    }
+                    setState(() {});
+                  },
+                ),
               ),
+              minLeadingWidth: 1.0,
+            ),
+            ExpansionTile(
+              tilePadding: EdgeInsets.only(right: 80.0, left: 16.0),
+              title: Row(
+                children: [
+                  Icon(Icons.settings),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 13.0),
+                    child: Text('Settings:'),
+                  ),
+                ],
+              ),
+              children: <Widget>[
+                ExpansionTile(
+                  tilePadding: EdgeInsets.only(right: 80.0, left: 50.0),
+                  title: Row(
+                    children: [
+                      Icon(Icons.language),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 12.0),
+                        child: Text('Language:'),
+                      ),
+                    ],
+                  ),
+                  children: <Widget>[
+                    ListTile(
+                      contentPadding: EdgeInsetsGeometry.lerp(
+                          EdgeInsets.zero, EdgeInsets.only(left: 80.0), 1.0),
+                      leading: Checkbox(
+                        value: _isCheckedEnglish,
+                        onChanged: (bool? newValue) {
+                          setState(() {
+                            if (_isCheckedEnglish == false) {
+                              _isCheckedEnglish = newValue!;
+                              _isCheckedDari = false;
+                            } else {
+                              _isCheckedEnglish = false;
+                              _isCheckedDari = true;
+                            }
+                          });
+                        },
+                      ),
+                      title: Text('English'),
+                      minLeadingWidth: 1.0,
+                    ),
+                    ListTile(
+                      contentPadding: EdgeInsetsGeometry.lerp(
+                          EdgeInsets.zero,
+                          EdgeInsets.only(
+                            left: 80.0,
+                          ),
+                          1.0),
+                      leading: Checkbox(
+                        value: _isCheckedDari,
+                        onChanged: (_) {
+                          setState(() {
+                            if (_isCheckedDari == false) {
+                              _isCheckedDari = true;
+                              _isCheckedEnglish = false;
+                            } else {
+                              _isCheckedDari = false;
+                              _isCheckedEnglish = true;
+                            }
+                          });
+                        },
+                      ),
+                      title: Text('Dari'),
+                      minLeadingWidth: 1.0,
+                    ),
+                  ],
+                ),
+                ListTile(
+                  contentPadding: EdgeInsetsGeometry.lerp(
+                      EdgeInsets.zero, EdgeInsets.only(left: 50, right: 50), 1),
+                  leading: Icon(Icons.font_download),
+                  title: Text('Font:'),
+                  trailing: DropdownButton<String>(
+                    value: _selectedOption,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        _selectedOption = newValue!;
+                      });
+                    },
+                    items: <String>[
+                      'Arial',
+                      'Cambria',
+                      'Forte',
+                      'Gigi',
+                      'Impact',
+                      'MVBoli',
+                    ].map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                  minLeadingWidth: 1.0,
+                ),
+                ListTile(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          iconPadding: EdgeInsets.only(right: 1.0),
+                          icon: Column(
+                            children: [
+                              Align(
+                                alignment: Alignment.topRight,
+                                child: IconButton(
+                                    icon: Icon(
+                                      Icons.close,
+                                      size: 20,
+                                      color: Colors.red,
+                                    ),
+                                    onPressed: () {
+                                      Navigator.push(context, MaterialPageRoute(
+                                        builder: (context) {
+                                          return HomeScreen();
+                                        },
+                                      ));
+                                    }),
+                              ),
+                              Icon(
+                                Icons.account_circle,
+                                size: 100,
+                                color: Colors.blue,
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                            ],
+                          ),
+                          title: Column(
+                            children: [
+                              TextField(
+                                // controller: "از صفحه اسپلش باید گرفت",
+                                decoration: InputDecoration(
+                                  filled: true,
+                                  prefixIcon: Icon(Icons.account_box),
+                                  labelText: "New Username",
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                                keyboardType: TextInputType.name,
+                                maxLength: 35,
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  ElevatedButton(
+                                    onPressed: () {},
+                                    child: Text(
+                                      "Change",
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                    style: ButtonStyle(
+                                      elevation: MaterialStateProperty.all(4),
+                                      shadowColor: MaterialStateProperty.all(
+                                          Colors.black),
+                                      fixedSize: MaterialStateProperty.all(Size(
+                                          90,
+                                          16)), // Set the width and height of the button
+                                      shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(30.0),
+                                          side: BorderSide(color: Colors.blue),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text(
+                                      "Cancel",
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                    style: ButtonStyle(
+                                      elevation: MaterialStateProperty.all(4),
+                                      shadowColor: MaterialStateProperty.all(
+                                          Colors.black),
+                                      fixedSize: MaterialStateProperty.all(Size(
+                                          90,
+                                          16)), // Set the width and height of the button
+                                      shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(30.0),
+                                          side: BorderSide(color: Colors.blue),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  contentPadding: EdgeInsetsGeometry.lerp(
+                      EdgeInsets.zero, EdgeInsets.only(left: 50), 1),
+                  leading: Icon(Icons.account_circle),
+                  title: Text('Change Username'),
+                  minLeadingWidth: 1.0,
+                ),
+              ],
             ),
             ListTile(
-              title: Text("Settings"),
-              leading: Icon(Icons.settings),
-              style: ListTileStyle.drawer,
-              // trailing: Drawer,
-            ),
-            ListTile(
+              onTap: () {},
               title: Text("Share App"),
               leading: Icon(Icons.share),
+              minLeadingWidth: 1.0,
             ),
             ListTile(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) {
+                    return About();
+                  },
+                ));
+              },
               title: Text("About"),
               leading: Icon(Icons.info),
+              minLeadingWidth: 1.0,
             ),
             ListTile(
+              onTap: () {
+                exit(0);
+              },
               title: Text("Exit"),
               leading: Icon(Icons.exit_to_app),
+              minLeadingWidth: 1.0,
+            ),
+            Expanded(
+              child: Container(
+                height: 450,
+              ),
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Divider(
+                  thickness: 3,
+                  color: Color.fromRGBO(116, 116, 116, 0.354),
+                  height: 0,
+                ),
+                Container(
+                  color: Colors.grey[300],
+                  height: 20,
+                  child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Version ",
+                          style: TextStyle(
+                            color: Colors.grey[400],
+                            fontSize: 15,
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Text(
+                            "0.1",
+                            style: TextStyle(
+                              color: Colors.grey[400],
+                              fontSize: 10,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
       ),
-      appBar: AppBar(
-        title: Text("Home"),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(28.0),
+      body: SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            // Image.asset("images/English-Grammar.png"),
-            // Image.asset("images/cafetalk.png"),
-            // Image.asset("images/undraw_road_knowled.png"),
-            Container(
-              color: Colors.green,
-              width: 250,
+            SizedBox(
+              height: 20,
+            ),
+            CarouselSlider(
+              options: CarouselOptions(
+                initialPage: 0,
+                autoPlay: true,
+                height: 180,
+                autoPlayCurve: Curves.fastOutSlowIn,
+                autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                autoPlayInterval: const Duration(seconds: 2),
+                enlargeCenterPage: true,
+                aspectRatio: 2.0,
+                onPageChanged: (index, reason) {
+                  setState(() {
+                    _currentIndex = index;
+                  });
+                },
+              ),
+              items: _imageList,
+            ),
+            AnimatedSmoothIndicator(
+              activeIndex: _currentIndex,
+              count: _imageList.length,
+              effect: const SwapEffect(
+                type: SwapType.yRotation,
+                activeDotColor: Colors.blue,
+                dotHeight: 8,
+                dotWidth: 8,
+                spacing: 10,
+                dotColor: Colors.grey,
+                paintStyle: PaintingStyle.fill,
+              ),
+            ),
+            SizedBox(
               height: 150,
             ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) {
+                    return Titles();
+                  },
+                ));
+              },
+              child: Text(
+                "Basic Level",
+                style: TextStyle(
+                  fontSize: 20.5,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+              style: ButtonStyle(
+                elevation: MaterialStateProperty.all(4),
+                shadowColor: MaterialStateProperty.all(Colors.black),
+                fixedSize: MaterialStateProperty.all(
+                    Size(200, 45)), // Set the width and height of the button
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                    side: BorderSide(color: Colors.blue),
+                  ),
+                ),
+              ),
+            ),
             SizedBox(
               height: 10,
             ),
             ElevatedButton(
-              onPressed: () {},
-              child: Text("Basic Level"),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) {
+                    return Titles();
+                  },
+                ));
+              },
+              child: Text(
+                "Intermediate Level",
+                style: TextStyle(
+                  fontSize: 20.5,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+              style: ButtonStyle(
+                elevation: MaterialStateProperty.all(4),
+                shadowColor: MaterialStateProperty.all(Colors.black),
+                fixedSize: MaterialStateProperty.all(
+                    Size(200, 45)), // Set the width and height of the button
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                    side: BorderSide(color: Colors.blue),
+                  ),
+                ),
+              ),
             ),
             SizedBox(
               height: 10,
             ),
             ElevatedButton(
-              onPressed: () {},
-              child: Text("Intermediate Level"),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text("Advance Level"),
+              onPressed: () {
+                // Navigator.push(context, MaterialPageRoute(
+                //   builder: (context) {
+                //     return Titles();
+                //   },
+                // ));
+              },
+              child: Text(
+                "Advance Level",
+                style: TextStyle(
+                  fontSize: 20.5,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+              style: ButtonStyle(
+                elevation: MaterialStateProperty.all(4),
+                shadowColor: MaterialStateProperty.all(Colors.black),
+                fixedSize: MaterialStateProperty.all(
+                    Size(200, 45)), // Set the width and height of the button
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                    side: BorderSide(color: Colors.blue),
+                  ),
+                ),
+              ),
             ),
           ],
         ),

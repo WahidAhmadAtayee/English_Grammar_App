@@ -1,3 +1,4 @@
+import 'package:english_grammar_app/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class About extends StatelessWidget {
@@ -10,123 +11,112 @@ class About extends StatelessWidget {
         centerTitle: true,
         title: Text(
           "About",
-          style: TextStyle(
-              color: Colors.white, fontSize: 30),
+          style: TextStyle(color: Colors.white, fontSize: 30),
         ),
         leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              // Navigator.pop(context);
-            },
-          ),
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(
+              builder: (context) {
+                return HomeScreen();
+              },
+            ));
+          },
+        ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 50.0,
-            ),
-            Container(
-              width: double.infinity,
-              height: 250,
-              color: Colors.white,
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    left: 55.0,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.grey,
-                        radius: 82,
-                        child: CircleAvatar(
-                          backgroundColor: Colors.lightBlue,
-                          radius: 80,
-                          child: Icon(
-                            Icons.account_circle,
-                            size: 150,
-                            color: Color.fromARGB(255, 0, 140, 255),
-                          ),
+      body: Column(
+        children: [
+          SizedBox(
+            height: 20.0,
+          ),
+          Container(
+            width: double.infinity,
+            height: 150,
+            color: Color.fromARGB(255, 212, 212, 212),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 30.0,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: Colors.grey,
+                      radius: 52,
+                      child: CircleAvatar(
+                        backgroundColor: Colors.lightBlue,
+                        radius: 60,
+                        child: Icon(
+                          Icons.account_circle,
+                          size: 100,
+                          color: Color.fromARGB(255, 0, 140, 255),
                         ),
                       ),
-                      SizedBox(
-                        width: 40.0,
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Name",
+                    ),
+                    SizedBox(
+                      width: 15.0,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10.0),
+                          child: Text(
+                            "Wahid Ahmad",
                             style: TextStyle(fontSize: 20),
                           ),
-                          Text(
-                            "Lastname",
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 40.0),
+                          child: Text(
+                            "Atayee",
                             style: TextStyle(fontSize: 20),
                           ),
-                          Text(
-                            "Email",
-                            style: TextStyle(fontSize: 20),
+                        ),
+                        TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            "--------@gmail.com",
+                            style: TextStyle(fontSize: 15),
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              child: Divider(
-                color: Colors.grey,
-                thickness: 1,
-                indent: 60,
-                endIndent: 60,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 60.0,
-                right: 60.0,
-                top: 20.0,
-              ),
-              child: Container(
-                width: double.infinity,
-                height: 400,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    width: 1.0,
-                    color: Colors.grey,
-                  ),
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(30),
-                    bottomLeft: Radius.circular(30),
-                    bottomRight: Radius.circular(30),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.2),
-                      spreadRadius: 5,
-                      blurRadius: 5,
-                      offset: Offset(1, 2),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-                child: Center(
-                  child: Text(
-                    "More information",
-                    style: TextStyle(
-                      fontSize: 16,
-                    ),
-                    textAlign: TextAlign.justify,
+              ),
+            ),
+          ),
+          SizedBox(
+            child: Divider(
+              color: Colors.grey,
+              thickness: 1,
+              indent: 60,
+              endIndent: 60,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+              left: 60.0,
+              right: 60.0,
+              top: 20.0,
+            ),
+            child: Container(
+              child: Center(
+                child: Text(
+                  "More Information!",
+                  style: TextStyle(
+                    fontSize: 16,
                   ),
+                  textAlign: TextAlign.justify,
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

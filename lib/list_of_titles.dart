@@ -1,7 +1,39 @@
+import 'package:english_grammar_app/show_details.dart';
 import 'package:flutter/material.dart';
 
+var listTitles = [
+  "What's grammar?",
+  "Letter",
+  "Word",
+  "Sentence",
+  "Subject",
+];
+var definitionList = [
+  "grammar",
+  "Letter",
+  "Word",
+  "Sentence",
+  "Subject",
+];
+var exampleList = [
+  "1 grammar",
+  "2 Letter",
+  "3 Word",
+  "4 Sentence",
+  "5 Subject",
+];
+var quizList = [
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+];
+
 class Titles extends StatefulWidget {
-  const Titles({super.key});
+  const Titles({
+    super.key,
+  });
 
   @override
   State<Titles> createState() => _TitlesState();
@@ -12,9 +44,111 @@ class _TitlesState extends State<Titles> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Titles"),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: Text(
+          "Titles from Home",
+          style: TextStyle(color: Colors.white, fontSize: 30),
+        ),
+        centerTitle: true,
+        // actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search))],
       ),
-      body: Center(child: Text("ListView.builder()")),
+      body: Column(
+        children: [
+          Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 15.0,
+                  top: 20.0,
+                ),
+                child: Text(
+                  "List of Contacts:",
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+              )),
+          Divider(
+            height: MediaQuery.of(context).size.height * 0.01,
+            thickness: MediaQuery.of(context).size.width * 0.005,
+            indent: 15.0,
+            endIndent: 15.0,
+          ),
+          Expanded(
+            child: ListView.separated(
+              itemCount:
+                  listTitles.length, // Replace with actual item count
+              separatorBuilder: (BuildContext context, int index) => Divider(),
+              itemBuilder: (BuildContext context, int index) {
+                bool isChecked =
+                    false; // Replace with own logic to manage the checkbox state
+
+                return ListTile(
+                  leading: Checkbox(
+                    value: isChecked,
+                    onChanged: (bool? value) {
+                      // Replace with own logic to handle checkbox changes
+                      // Will need to update the isChecked value for each item
+                    },
+                  ),
+                  title: Text(
+                    listTitles[index],
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.italic),
+                    textAlign: TextAlign.justify,
+                  ),
+                  trailing: Icon(Icons.arrow_forward),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return ShowDetails(
+                            definitionList: [definitionList[index].toString()],
+                            exampleList: [exampleList[index]],
+                            quizList: [quizList[index]],
+                          );
+                        },
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
+
+/*
+
+Padding(
+            padding: const EdgeInsets.only(left: 15.0, top: 5.0),
+            child: Text(
+              "List of contacts:",
+              style: TextStyle(
+                fontStyle: FontStyle.italic,
+                fontSize: 30,
+              ),
+            ),
+          ),
+          Divider(
+            height: 10.0,
+            thickness: 2.0,
+            indent: 15.0,
+            endIndent: 200,
+            color: Colors.blueGrey,
+          ),
+
+ */
