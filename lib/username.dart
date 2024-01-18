@@ -24,7 +24,7 @@ class _UserNameState extends State<UserName> {
                   CircleAvatar(
                     backgroundColor: Colors.grey,
                     radius: 100,
-                    child: Image.asset("images/cafetalk.png"),
+                    child: Image.asset(""),
                   ),
                   Positioned(
                     child: TextButton(
