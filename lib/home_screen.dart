@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:share/share.dart';
 import 'package:english_grammar_app/about.dart';
 import 'package:english_grammar_app/list_of_titles.dart';
 import 'package:flutter/material.dart';
@@ -349,7 +349,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
             ListTile(
-              onTap: () {},
+              onTap: () {
+                Share.share("Share the app");
+              },
               title: Text("Share App"),
               leading: Icon(Icons.share),
               minLeadingWidth: 1.0,
