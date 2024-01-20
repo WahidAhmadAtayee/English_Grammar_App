@@ -61,7 +61,7 @@ class _SplashScreenState extends State<SplashScreen>
                   animatedTexts: [
                     TyperAnimatedText(
                       'English Grammar',
-                      speed: Duration(milliseconds: 200),
+                      speed: Duration(milliseconds: 150),
                       textStyle: TextStyle(
                         shadows: [
                           Shadow(

@@ -90,6 +90,7 @@ class _TitlesState extends State<Titles> {
                             exampleList: [info.exampleList[index]],
                             quizList: [info.quizList[index]],
                             buttonInfo: [info.buttonList[5]],
+                           
                           );
                         },
                       ),

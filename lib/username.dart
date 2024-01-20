@@ -1,4 +1,5 @@
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:english_grammar_app/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +12,7 @@ class UserName extends StatefulWidget {
 
 class _UserNameState extends State<UserName> {
   TextEditingController u_nameController = TextEditingController();
+  String checkedTextFiled = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +38,7 @@ class _UserNameState extends State<UserName> {
                       ),
                     ),
                     right: 10,
-                    bottom: -10,
+                    bottom: -2,
                   ),
                 ],
               ),
@@ -46,7 +48,6 @@ class _UserNameState extends State<UserName> {
               Padding(
                 padding: const EdgeInsets.only(
                   top: 15.0,
-                  bottom: 15.0,
                   right: 50.0,
                   left: 50.0,
                 ),
@@ -62,13 +63,26 @@ class _UserNameState extends State<UserName> {
                   ),
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.only(left: 50.0, bottom: 10.0),
+                child: Align(alignment: Alignment.topLeft,child: Text(checkedTextFiled,style: TextStyle(color: Colors.red),)),
+              ),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (context) {
-                      return HomeScreen();
-                    },
-                  ),);
+                  setState(() async {
+                    final SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                      if (u_nameController.text != "") {
+                        await prefs.setBool('isLoggedIn', true);
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context) {
+                            return HomeScreen();
+                          },
+                        ));
+                      }else{
+                        checkedTextFiled = "Enter your full-name, please!";
+                      }
+                  }); 
                 },
                 child: Text(
                   "Save",

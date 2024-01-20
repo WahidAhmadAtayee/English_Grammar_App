@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:english_grammar_app/info/fonts.dart';
 import 'package:english_grammar_app/info/imageList.dart';
 import 'package:english_grammar_app/info/info.dart';
@@ -9,10 +10,12 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-var mode = false;
+
+
 var iconMode = Icons.light_mode;
 var fullName = "Full-Name";
-
+bool? isDark;
+var mode = false;
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
 
@@ -38,10 +41,30 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    _navigateMode();
+  }
+
+  
+
+  _navigateMode() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    isDark = prefs.getBool('isDark');
+
+    if (isDark == true ) {
+      mode = true;
+      iconMode = Icons.mode_night;
+    } else {
+      mode = false;
+      iconMode = Icons.light_mode_sharp;
+    }
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -112,12 +135,16 @@ class _HomeScreenState extends State<HomeScreen> {
               trailing: Padding(
                 padding: const EdgeInsets.only(right: 50.0),
                 child: Switch(
+                  
                   value: mode,
-                  onChanged: (v) {
+                  onChanged: (v) async {
+                    final SharedPreferences prefs = await SharedPreferences.getInstance();
                     if (mode == false) {
+                      await prefs.setBool('isDark', true);
                       mode = true;
                       iconMode = Icons.dark_mode;
                     } else {
+                      await prefs.remove('isDark');
                       mode = false;
                       iconMode = Icons.light_mode;
                     }
