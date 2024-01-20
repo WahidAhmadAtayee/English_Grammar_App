@@ -1,34 +1,6 @@
+import 'package:english_grammar_app/info/info.dart';
 import 'package:english_grammar_app/show_details.dart';
 import 'package:flutter/material.dart';
-
-var listTitles = [
-  "What's grammar?",
-  "Letter",
-  "Word",
-  "Sentence",
-  "Subject",
-];
-var definitionList = [
-  "grammar",
-  "Letter",
-  "Word",
-  "Sentence",
-  "Subject",
-];
-var exampleList = [
-  "1 grammar",
-  "2 Letter",
-  "3 Word",
-  "4 Sentence",
-  "5 Subject",
-];
-var quizList = [
-  "1",
-  "2",
-  "3",
-  "4",
-  "5",
-];
 
 class Titles extends StatefulWidget {
   const Titles({
@@ -40,6 +12,8 @@ class Titles extends StatefulWidget {
 }
 
 class _TitlesState extends State<Titles> {
+  Info info = Info();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,8 +57,7 @@ class _TitlesState extends State<Titles> {
           ),
           Expanded(
             child: ListView.separated(
-              itemCount:
-                  listTitles.length, // Replace with actual item count
+              itemCount: info.titleList.length, // Replace with actual item count
               separatorBuilder: (BuildContext context, int index) => Divider(),
               itemBuilder: (BuildContext context, int index) {
                 bool isChecked =
@@ -99,7 +72,7 @@ class _TitlesState extends State<Titles> {
                     },
                   ),
                   title: Text(
-                    listTitles[index],
+                    info.titleList[index],
                     style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -113,9 +86,10 @@ class _TitlesState extends State<Titles> {
                       MaterialPageRoute(
                         builder: (context) {
                           return ShowDetails(
-                            definitionList: [definitionList[index].toString()],
-                            exampleList: [exampleList[index]],
-                            quizList: [quizList[index]],
+                            definitionList: [info.definitionList[index].toString()],
+                            exampleList: [info.exampleList[index]],
+                            quizList: [info.quizList[index]],
+                            buttonInfo: [info.buttonList[5]],
                           );
                         },
                       ),
@@ -130,25 +104,3 @@ class _TitlesState extends State<Titles> {
     );
   }
 }
-
-/*
-
-Padding(
-            padding: const EdgeInsets.only(left: 15.0, top: 5.0),
-            child: Text(
-              "List of contacts:",
-              style: TextStyle(
-                fontStyle: FontStyle.italic,
-                fontSize: 30,
-              ),
-            ),
-          ),
-          Divider(
-            height: 10.0,
-            thickness: 2.0,
-            indent: 15.0,
-            endIndent: 200,
-            color: Colors.blueGrey,
-          ),
-
- */

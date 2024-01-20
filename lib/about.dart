@@ -1,9 +1,10 @@
 import 'package:english_grammar_app/home_screen.dart';
+import 'package:english_grammar_app/info/fonts.dart';
 import 'package:flutter/material.dart';
 
 class About extends StatelessWidget {
-  const About({super.key});
-
+  About({super.key});
+  Fonts font = Fonts();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,21 +67,30 @@ class About extends StatelessWidget {
                           padding: const EdgeInsets.only(left: 10.0),
                           child: Text(
                             "Wahid Ahmad",
-                            style: TextStyle(fontSize: 20),
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontFamily: font.fontsList[1],
+                            ),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 40.0),
                           child: Text(
                             "Atayee",
-                            style: TextStyle(fontSize: 20),
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontFamily: font.fontsList[1],
+                            ),
                           ),
                         ),
                         TextButton(
                           onPressed: () {},
                           child: Text(
                             "--------@gmail.com",
-                            style: TextStyle(fontSize: 15),
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontFamily: font.fontsList[0],
+                            ),
                           ),
                         ),
                       ],
@@ -110,6 +120,7 @@ class About extends StatelessWidget {
                   "More Information!",
                   style: TextStyle(
                     fontSize: 16,
+                    fontFamily: font.fontsList[7],
                   ),
                   textAlign: TextAlign.justify,
                 ),

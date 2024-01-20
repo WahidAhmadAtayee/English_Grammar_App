@@ -1,4 +1,7 @@
 import 'dart:io';
+import 'package:english_grammar_app/info/fonts.dart';
+import 'package:english_grammar_app/info/imageList.dart';
+import 'package:english_grammar_app/info/info.dart';
 import 'package:share/share.dart';
 import 'package:english_grammar_app/about.dart';
 import 'package:english_grammar_app/list_of_titles.dart';
@@ -18,26 +21,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  
-  String? _selectedOption;
+  ImageList _imageList = ImageList();
+  Info info = Info();
+  Fonts font = Fonts();
+  var _selectedOption = 'Arial';
 
   bool _isCheckedEnglish = true;
   bool _isCheckedDari = false;
 
   var version = "0.1";
   
-  final _imageList = [
-    Image.asset('images/English_grammar1.png'),
-    Image.asset('images/English_grammar2.png'),
-    Image.asset('images/Basic_English_grammar1.jpg'),
-    Image.asset('images/basic.jpg'),
-    Image.asset('images/intermediate.jpg'),
-    Image.asset('images/advanced.jpg'),
-    Image.asset('images/Advanced_English_grammar1.png'),
-    Image.asset('images/English_grammar3.jpg'),
-    Image.asset('images/English_grammar4.jpg'),
 
-  ];
+
   int _currentIndex = 0;
 
   @override
@@ -215,12 +210,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       });
                     },
                     items: <String>[
-                      'Arial',
-                      'Cambria',
-                      'Forte',
-                      'Gigi',
-                      'Impact',
-                      'MVBoli',
+                      font.fontsList[0],
+                      font.fontsList[1],
+                      font.fontsList[2],
+                      font.fontsList[3],
+                      font.fontsList[4],
+                      font.fontsList[5],
+                      font.fontsList[6],
+                      font.fontsList[7],
                     ].map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
@@ -289,7 +286,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ElevatedButton(
                                     onPressed: () {},
                                     child: Text(
-                                      "Change",
+                                      info.buttonList[3],
                                       style: TextStyle(fontSize: 16),
                                     ),
                                     style: ButtonStyle(
@@ -317,7 +314,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       Navigator.pop(context);
                                     },
                                     child: Text(
-                                      "Cancel",
+                                      info.buttonList[4],
                                       style: TextStyle(fontSize: 16),
                                     ),
                                     style: ButtonStyle(
@@ -450,11 +447,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   });
                 },
               ),
-              items: _imageList,
+              items: _imageList.imageList,
             ),
             AnimatedSmoothIndicator(
               activeIndex: _currentIndex,
-              count: _imageList.length,
+              count: _imageList.imageList.length,
               effect: const SwapEffect(
                 type: SwapType.yRotation,
                 activeDotColor: Colors.blue,
@@ -477,7 +474,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ));
               },
               child: Text(
-                "Basic Level",
+                info.buttonList[0],
                 style: TextStyle(
                   fontSize: 20.5,
                   fontStyle: FontStyle.italic,
@@ -508,7 +505,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ));
               },
               child: Text(
-                "Intermediate Level",
+                info.buttonList[1],
                 style: TextStyle(
                   fontSize: 20.5,
                   fontStyle: FontStyle.italic,
@@ -539,7 +536,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 // ));
               },
               child: Text(
-                "Advance Level",
+                info.buttonList[2],
                 style: TextStyle(
                   fontSize: 20.5,
                   fontStyle: FontStyle.italic,
