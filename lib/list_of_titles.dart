@@ -87,7 +87,6 @@ class _TitlesState extends State<Titles> {
                         builder: (context) {
                           return ShowDetails(
                             definitionList: [info.definitionList[index].toString()],
-                            exampleList: [info.exampleList[index]],
                             quizList: [info.quizList[index]],
                             buttonInfo: [info.buttonList[5]],
                            

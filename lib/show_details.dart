@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 class ShowDetails extends StatefulWidget {
   final List<String> definitionList;
-  final List<String> exampleList;
   final List<String> quizList;
   final List<String> buttonInfo;
   
@@ -12,7 +11,6 @@ class ShowDetails extends StatefulWidget {
   ShowDetails(
       {super.key,
       required this.definitionList,
-      required this.exampleList,
       required this.quizList,
       required this.buttonInfo,
       });
@@ -80,24 +78,6 @@ class _ShowDetailsState extends State<ShowDetails> {
                     height: 40.0,
                   ),
                 ),
-                Row(
-                  children: [
-                    Text(
-                      "Example: ",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      widget.exampleList[index],
-                      style: TextStyle(
-                        fontSize: 18,
-                      ),
-                      textAlign: TextAlign.justify,
-                    ),
-                  ],
-                ),
                 SizedBox(
                   height: 50,
                   child: Divider(
@@ -110,10 +90,18 @@ class _ShowDetailsState extends State<ShowDetails> {
                 ),
                 Column(
                   children: [
+                    Text(
+                      "Quiz: ",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    // SizedBox(child: Divider(thickness: 2,)),
                     Row(
                       children: [
                         Text(
-                          "Quiz: ",
+                          "Q: ",
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -130,6 +118,9 @@ class _ShowDetailsState extends State<ShowDetails> {
                     ),
                   ],
                 ),
+                RadioListTile(title: Text("Grammar is..."),value: 1, groupValue: 1, onChanged: (value){}),
+                RadioListTile(title: Text("Grammar is..."),value: 2, groupValue: 2, onChanged: (value){}),
+                RadioListTile(title: Text("Grammar is..."),value: 3, groupValue: 3, onChanged: (value){}),
                 SizedBox(
                   height: 50,
                   child: Divider(
