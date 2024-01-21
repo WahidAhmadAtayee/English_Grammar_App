@@ -6,22 +6,22 @@ class ShowDetails extends StatefulWidget {
   final List<String> definitionList;
   final List<String> quizList;
   final List<String> buttonInfo;
-  
 
-  ShowDetails(
-      {super.key,
-      required this.definitionList,
-      required this.quizList,
-      required this.buttonInfo,
-      });
+  ShowDetails({
+    super.key,
+    required this.definitionList,
+    required this.quizList,
+    required this.buttonInfo,
+  });
 
   @override
   State<ShowDetails> createState() => _ShowDetailsState();
 }
 
-int _value = 0;
+// int _value = 0;
 
 class _ShowDetailsState extends State<ShowDetails> {
+  int _selectedValue = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,16 +78,6 @@ class _ShowDetailsState extends State<ShowDetails> {
                     height: 40.0,
                   ),
                 ),
-                SizedBox(
-                  height: 50,
-                  child: Divider(
-                    thickness: 1,
-                    color: Colors.grey,
-                    indent: 2.0,
-                    endIndent: 2.0,
-                    height: 40.0,
-                  ),
-                ),
                 Column(
                   children: [
                     Text(
@@ -118,9 +108,36 @@ class _ShowDetailsState extends State<ShowDetails> {
                     ),
                   ],
                 ),
-                RadioListTile(title: Text("Grammar is..."),value: 1, groupValue: 1, onChanged: (value){}),
-                RadioListTile(title: Text("Grammar is..."),value: 2, groupValue: 2, onChanged: (value){}),
-                RadioListTile(title: Text("Grammar is..."),value: 3, groupValue: 3, onChanged: (value){}),
+                RadioListTile<int>(
+                  title: Text("Grammar is..."),
+                  value: 1,
+                  groupValue: _selectedValue,
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedValue = value!;
+                    });
+                  },
+                ),
+                RadioListTile<int>(
+                  title: Text("Grammar is..."),
+                  value: 2,
+                  groupValue: _selectedValue,
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedValue = value!;
+                    });
+                  },
+                ),
+                RadioListTile<int>(
+                  title: Text("Grammar is..."),
+                  value: 3,
+                  groupValue: _selectedValue,
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedValue = value!;
+                    });
+                  },
+                ),
                 SizedBox(
                   height: 50,
                   child: Divider(
